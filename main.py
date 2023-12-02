@@ -1,4 +1,5 @@
-import day1 
+import day2.day2 as day2
+data = day2.solve()
+ 
 with open("output.txt","w") as file:
-    data = day1.solve()
-    file.write(data)
+    file.write(str(data))
