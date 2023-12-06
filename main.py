@@ -1,9 +1,9 @@
-import day5.day5part2 as day5
+import day6.day6 as day6
 import time as t
 
 time = t.perf_counter()
 
-solution = day5.solve()
+solution = day6.solve()
 
 
 with open("output.txt","w") as file:
