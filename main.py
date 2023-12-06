@@ -1,4 +1,4 @@
-import day5.day5 as day5
+import day5.day5part2 as day5
 import time as t
 
 time = t.perf_counter()
@@ -12,4 +12,4 @@ with open("output.txt","w") as file:
 print("Success")
 
 runtime = t.perf_counter() - time
-print(runtime)
+print(f"{1000 * runtime} ms")
