@@ -61,9 +61,9 @@ def solve():
         "One",
         "Two",
         "Three",
+        "Full",
         "Four",
-        "Five",
-        "Full" 
+        "Five"
     ]
         
 
@@ -92,8 +92,12 @@ def solve():
                     break 
         current_list.insert(index, (hand, bet))
     total_score = 0
+    current_index = 1
     for hand_type in possible_hands:
-        
+        for card in hands[hand_type]:
+            total_score += current_index * card[1]
+            current_index += 1
+    return total_score
 print(solve())
         
 
