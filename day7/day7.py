@@ -1,3 +1,4 @@
+import random as r
 def evaluate_hand(hand):
     data = {}
     cards = set()
@@ -6,12 +7,13 @@ def evaluate_hand(hand):
             data[h] = 0
             cards.add(h)
         data[h] += 1
-        if data[h] == 5:
-            return "Five"
-        if data[h] == 4:
+       
+        if data[h] == 4 and len(data) == 2:
             return "Four"
     length = len(data)
     match length:
+        case 1:
+            return "Five"
         case 2:
             return "Full"
         case 3:
@@ -22,7 +24,8 @@ def evaluate_hand(hand):
                     return "Two"
         case 4:
             return "One"
-    return "High"
+        case 5:
+            return "High"
 def get_value(card):
     values = {
             "A":13,
@@ -39,10 +42,7 @@ def get_value(card):
             "3":2,
             "2":1
         }
-    try:
-        return values[card]
-    except:
-        return -1
+    return values[card]
 def solve():
     lines = []
     with open("day7/input7.txt") as file:
@@ -65,39 +65,59 @@ def solve():
         "Four",
         "Five"
     ]
-        
-
-   
     for line in lines:
         split_line = line.split(" ")
         hand = split_line[0]
         bet = split_line[1]
-        current_list = hands[evaluate_hand(hand)]
-        if current_list == 0:
-            current_list.append((hand, bet))
+        evaluated_hand = evaluate_hand(hand)
+        # print(evaluated_hand)
+        # continue
+        current_list = hands[evaluated_hand]
+        # if current_list == []:
+        #     current_list.append((hand, bet))
+        #     continue
         index = 0
+        found = False
         for index, item in enumerate(current_list):
+            
             if get_value(hand[0]) < get_value(item[0][0]):
-                break
-            if get_value(hand[0]) > get_value(item[0][0]):
+                found = True
+                
                 break
             if get_value(hand[0]) == get_value(item[0][0]):
-                i = 0                
-                while get_value(hand[i]) == get_value(item[0][i]):
-                    i+=1
-                if get_value(hand[i]) < get_value(item[0][i]):
-                     break
-                else:
-                    index += 1
-                    break 
-        current_list.insert(index, (hand, bet))
+                i = 0     
+                           
+                while i < 5:
+                    if get_value(hand[i]) < get_value(item[0][i]):
+                            found = True
+                         
+                            break
+                    if  get_value(hand[i]) > get_value(item[0][i]):
+                            index += 1
+                            found = True
+                            break
+                    i+=1     
+            if found:
+                break
+      
+        if found:    
+            current_list.insert(index, (hand, bet))
+        else:
+            current_list.append((hand, bet))
+        # hands[evaluated_hand] = current_list
     total_score = 0
-    current_index = 1
+    current_index = 0
     for hand_type in possible_hands:
         for card in hands[hand_type]:
-            total_score += current_index * card[1]
             current_index += 1
+            total_score += current_index * int(card[1])
     return total_score
+#249517775
+#249570620
+#249593835
+
+
+#249390788
 print(solve())
         
 
