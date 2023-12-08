@@ -32,6 +32,6 @@ def solve():
                 index = 0
         lengths[initial_pos] = steps
         all_steps.append(steps)
-
+    print(lengths["AAA"])
     print(math.lcm(*all_steps))
 solve()
