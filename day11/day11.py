@@ -32,38 +32,36 @@ def solve():
 
     distances = {}
     all_points = set()
-    for index, line in enumerate(lines):
-        if not "#" in line:
-            scalar_rows.add(index)
-        for i, r in enumerate(line):
-            if i in empty_columns:
-                empty_columns[i] += 0 if r == "." else 1
+    for r, row in enumerate(lines):
+        empty_row = True
+        for c, col in enumerate(row):
+            if c in empty_columns:
+                empty_columns[c] += 0 if col == "." else 1
             else:
-                empty_columns[i] = 0 if r == "." else 1
-            if empty_columns[i] == 0:
-                scalar_cols.add(i)
+                empty_columns[c] = 0 if col == "." else 1
+            if empty_columns[c] == 0:
+                scalar_cols.add(c)
             else:
                 try:
-                    scalar_cols.remove(i)
+                    scalar_cols.remove(c)
                 except:
                     pass
-            if r == "#":
-                all_points.add((index,i))
-                distances[(index,i)] = -1
-
+            if col == "#":
+                all_points.add((r,c))
+                distances[(r,c)] = -1
+                empty_row = False
+        if empty_row:
+            scalar_rows.add(r)
     part1 = 0
     part2 = 0
+    evaluated_pairs = set()
     for point1 in all_points:
         for point2 in all_points:
-           
-            current_distance = calculate_taxicab(point1, point2, 2)
-            part1 += current_distance
-            current_distance = calculate_taxicab(point1, point2, 1000000)
-            part2 += current_distance
-           
-    part1 //= 2
-    part2 //= 2
-   
-
+            if (point1, point2) not in evaluated_pairs:
+                current_distance = calculate_taxicab(point1, point2, 2)
+                part1 += current_distance
+                current_distance = calculate_taxicab(point1, point2, 1000000)
+                part2 += current_distance
+                evaluated_pairs.add((point1, point2))
+                evaluated_pairs.add((point2, point1))
     return f"Part 1: {int(part1)}\nPart 2: {int(part2)}"
-print(solve())
