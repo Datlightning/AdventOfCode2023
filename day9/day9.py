@@ -51,9 +51,10 @@ def interpolate(numbers):
             coefficient = temp_factors[0]
             power = length 
             pascals_coefficients = []
-            if power in pascals_triangle:
+            
+            try:
                 pascals_coefficients = pascals_triangle[power]
-            else:
+            except:
                 pascals_coefficients = get_pascals_triangle(power)
                 pascals_triangle[power] = pascals_coefficients
             current_factor = coefficient/pascals_coefficients[1]
