@@ -15,7 +15,7 @@ def slide(direction, stationary_rocks, rocks_to_be_moved, width, height):
         changes -= 1
         rocks_to_be_moved[i] = nextposition
         stationary_rocks.add(nextposition)
-    return rocks_to_be_moved, changes
+    return rocks_to_be_moved, changes, stationary_rocks
 def calculate_score(rocks, height):
     score = 0
     for rock in rocks:
@@ -60,7 +60,7 @@ def solve():
     for i in range(1000000000):
         display(rocks_to_be_moved, height, width)
         for direction in [[-1,0],[0,-1],[1,0],[0,1]]:
-            rocks_to_be_moved, changes = slide(direction, stationary_rocks, rocks_to_be_moved, width, height)
+            rocks_to_be_moved, changes, stationary_rocks = slide(direction, stationary_rocks, rocks_to_be_moved, width, height)
             
         if changes == 0:
                 break
