@@ -104,6 +104,6 @@ def solve():
     print(f"Part 1: {int(part1)}\nPart 2: {int(part2)}")
     return 
 
-#34420 too high
+#87700
 if __name__ == '__main__':
     solve()
