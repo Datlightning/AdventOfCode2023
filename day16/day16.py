@@ -1,20 +1,4 @@
-class Pose:
-    def __init__(self, y, x, heading, grid):
-        self.y = y
-        self.x = x
-        self.value = grid[y][x]
-        self.powered = False
-        self.heading = heading
-        self.max_y = len(grid)
-        self.max_x = len(grid[0])
-        self.grid = grid
-    def get_powered(self):
-        return self.powered
-    def move(self):
-        self.heading %= 360
-        dx = 0
-        dy = 0
-        
+
         
 directions = {
     "|":{
