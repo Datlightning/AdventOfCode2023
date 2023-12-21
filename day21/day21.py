@@ -31,12 +31,13 @@ def solve():
 
     max_y = len(grid)
     max_x = len(grid[0])
+    size = max_x
     parts = []
     for part, data in enumerate([(start,64), #part 1
-                                 (start,max_x*2 + 1), (start,max_x*2), #even and odd counts
-                                 ((sr,0), max_x - 1), ((0,sc), max_x - 1), ((max_x - 1, sc), max_x - 1), ((sr, max_x - 1), max_x - 1), #corner counts
-                                 ((max_x - 1 ,0), max_x // 2-1), ((0,max_x - 1), max_x // 2-1), ((max_x - 1 , max_x - 1), max_x // 2-1), ((0,0), max_x // 2-1), # small spaces
-                                ((max_x - 1 ,0), (3 * max_x) // 2-1), ((0,max_x - 1), (3 * max_x) // 2-1), ((max_x - 1 , max_x - 1), (3 * max_x )// 2-1), ((0,0), (3 * max_x) // 2-1)]): #big spaces
+                                 (start,size*2 + 1), (start,size*2), #even and odd counts
+                                 ((sr,0), size - 1), ((0,sc), size - 1), ((size - 1, sc), size - 1), ((sr, size - 1), size - 1), #corner counts
+                                ((size - 1 ,0), size // 2-1), ((0,size - 1), size // 2-1), ((size - 1 , size - 1), size // 2-1), ((0,0), size // 2-1), # small spaces
+                                ((size - 1 ,0), (3 * size) // 2-1), ((0,size - 1), (3 * size) // 2-1), ((size - 1 , size - 1), (3 * size )// 2-1), ((0,0), (3 * size) // 2-1)]): #big spaces
         steps = data[1]
         start = data[0]
         odd = steps % 2 == 1
@@ -71,13 +72,14 @@ def solve():
     even_tiles = ((grid_width + 1)//2 * 2) ** 2
     odd_points = parts[1]
     even_points = parts[2]
-    corners = sum(parts[3:8])
-    small_segments = sum(parts[8:13]) * (grid_width + 1)
-    large_segments = sum(parts[13:18]) * grid_width
+    corners = sum(parts[3:7])
+    small_segments = sum(parts[7:11]) * (grid_width + 1)
+    large_segments = sum(parts[11:]) * grid_width
     full_tiles = odd_tiles * odd_points + even_tiles * even_points
     part2 = corners + full_tiles + small_segments + large_segments
     #618259906474270 is too low
     #618261433623748 is too high
+    #618261243475910 is wrong
     return f"Part 1: {part1}\nPart 2: {part2}"
 
 if __name__ == "__main__":
