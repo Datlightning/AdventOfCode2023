@@ -1,4 +1,3 @@
-# import networkx as nx
 # import numpy as np
 # import matplotlib.pyplot as plt
 # # Open the text file
@@ -24,15 +23,4 @@
 
 # nx.draw(G, pos=)
 # plt.show()
-from graphviz import Graph
 
-dot = Graph()
-with open('output.txt', 'r') as file:
-    for line in file.read().split("\n"):
-        nodes = line.strip().split("->")
-        dot.node(nodes[0])
-        dot.node(nodes[1])
-        dot.edge(nodes[0], nodes[1])
-dot.engine = 'neato'
-# dot.render('test-output/round-table.gv', view=True)
-dot.render('graph')
